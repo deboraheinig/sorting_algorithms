@@ -1,0 +1,238 @@
+#include <iostream>
+#include <time.h>
+#include <conio.h>
+using namespace std;
+
+struct Jogador {
+	string nome;
+	int pontuacao;
+};
+
+void sobre() {
+	std::cout << "\n*==========================================*" << std::endl;
+	std::cout << "|   Algoritmos e Programacao II - 2022.1   |" << std::endl;
+	std::cout << "|                                          |" << std::endl;
+	std::cout << "|             Professor:                   |" << std::endl;
+	std::cout << "|            Rodrigo Lyra                  |" << std::endl;
+	std::cout << "|                                          |" << std::endl;
+	std::cout << "|              Alunos:                     |" << std::endl;
+	std::cout << "|    Cesar Pereira  e Deborah  Heinig      |" << std::endl;
+	std::cout << "*==========================================*" << std::endl << std::endl;
+}
+
+void preencherVetor(Jogador* vet, int size) {
+	string sorteioNomes = "abcdefghijklmnopqrstuvwxyz";
+	int sorteio;
+
+	//Sorteia a pontuação e o nome em cada posição do vetor
+	for (int i = 0; i < size; i++) {
+		vet[i].pontuacao = rand() % 1000 + 1;
+		vet[i].nome = ""; //Para não ocorrer lixo de memória
+		//Quantidade de char que o nome de cada posição terá
+		for (int letras = 0; letras < 2; letras++) {
+			sorteio = rand() % 26;
+			vet[i].nome += sorteioNomes[sorteio];
+		}
+	}
+}
+
+void bubbleSortNomes(Jogador* vetor, int tamanho) {
+	int j = 0;
+	Jogador temp;
+	bool ordem = false;
+
+	while (!ordem) {
+		ordem = true;
+		j++;
+		for (int i = 0; i < tamanho - j; i++) {
+			if (vetor[i].nome > vetor[i + 1].nome) {
+				temp = vetor[i];
+				vetor[i] = vetor[i + 1];
+				vetor[i + 1] = temp;
+				ordem = false;
+			}
+		}
+	}
+}
+
+void bubbleSortPontuacao(Jogador* vetor, int tamanho) {
+	int j = 0;
+	Jogador temp;
+	bool ordem = false;
+
+	while (!ordem) {
+		ordem = true;
+		j++;
+		for (int i = 0; i < tamanho - j; i++) {
+			if (vetor[i].pontuacao < vetor[i + 1].pontuacao) {
+				temp = vetor[i];
+				vetor[i] = vetor[i + 1];
+				vetor[i + 1] = temp;
+				ordem = false;
+			}
+		}
+	}
+}
+
+void melhoresPontuacoes100(Jogador* vetor, int size) {
+	bubbleSortNomes(vetor, size); // Ordena primeiro por ordem alfabetica 
+	bubbleSortPontuacao(vetor, size); // Depois ordena por ordem de pontuacao decrescente 
+
+	cout << "\n*=====================================================*" << endl;
+	cout << "| Ordenacao em das melhores 100 pont. com Bubble Sort |" << endl;
+	cout << "*=====================================================*" << endl << endl;
+
+	for (int i = 0; i < 100; i++) {
+		if (i < 99)
+			cout << " ";
+		if (i < 9)
+			cout << "0";
+		cout << i + 1 << ". " << vetor[i].nome << " [\t" << vetor[i].pontuacao << "\t]" << endl;
+	}
+}
+
+int particao(Jogador* vetor, int esquerda, int direita) {
+	int i = esquerda, j = direita;
+	int tmp, pivot = vetor[(esquerda + direita) / 2].pontuacao;
+
+	while (i <= j) {
+		while (vetor[i].pontuacao > pivot)
+			i++;
+		while (vetor[j].pontuacao < pivot)
+			j--;
+		if (i <= j) {
+			tmp = vetor[i].pontuacao;
+			vetor[i] = vetor[j];
+			vetor[j].pontuacao = tmp;
+			i++;
+			j--;
+		}
+	};
+	return i;
+}
+
+void quickSort(Jogador* vetor, int esq, int dir) {
+	int index = particao(vetor, esq, dir);
+	if (esq < index - 1)
+		quickSort(vetor, esq, index - 1);
+	if (index < dir)
+		quickSort(vetor, index, dir);
+}
+
+void melhoresPontuacoes10(Jogador* vetor, int size) {
+	quickSort(vetor, 0, size - 1);
+
+	cout << "\n*====================================================*" << endl;
+	cout << "| Ordenacao em das melhores 10 pont. com Quick Sort |" << endl;
+	cout << "*====================================================*" << endl << endl;
+
+	for (int i = 0; i < 10; i++) {
+		if (i < 99)
+			cout << " ";
+		if (i < 9)
+			cout << "0";
+		cout << i + 1 << ". " << vetor[i].nome << "\t" << " [\t" << vetor[i].pontuacao << "\t]" << endl;
+	}
+}
+
+void shellSort(Jogador* vetor, int tam) {
+	for (int gap = tam / 2; gap > 0; gap /= 2) {
+		for (int i = gap; i < tam; i += 1) {
+			string temp = vetor[i].nome;
+			int j;
+
+			for (j = i; j >= gap && vetor[j - gap].nome > temp; j -= gap)
+				vetor[j].nome = vetor[j - gap].nome;
+
+			vetor[j].nome = temp;
+		}
+	}
+}
+
+void exibirJogadores(Jogador* vetor, int size) {
+	shellSort(vetor, size);
+
+	cout << "\n*=============================================*" << endl;
+	cout << "|   Ordenacao em ordem alfab. com Shell Sort  |" << endl;
+	cout << "*=============================================*" << endl << endl;
+
+	for (int i = 0, tab = 0; i < size; i++) {
+		if (i < 99)
+			cout << " ";
+		if (i < 9)
+			cout << "0";
+		cout << i + 1 << ". " << vetor[i].nome << "\t" << " [\t" << vetor[i].pontuacao << "\t]" << endl;
+	}
+}
+
+int main() {
+
+	srand(time(NULL));
+
+	int size = 100;
+	bool end = false;
+	char press;
+
+	Jogador* list = new Jogador[size];
+	preencherVetor(list, size);
+
+	while (!end) {
+		system("cls");
+		cout << "\n*=========================================*" << endl;
+		cout << "| Bem vindo a M3 de ordenacao de vetores! |" << endl;
+		cout << "*=========================================*" << endl;
+		cout << "|       Selecione uma das opcoes:         | " << endl;
+		cout << "*=========================================*" << endl << endl;
+		cout << "*=========================================*" << endl;
+		cout << "|1. Bubble Sort: Top 100 em ordem alfabet.|" << endl;
+		cout << "|2. Quick Sort: 10 melhores pontuacoes    |" << endl;
+		cout << "|3. Shell Sort: Ordem alfabetica          |" << endl;
+		cout << "|4. Criar uma nova lista de jogadores     |" << endl;
+		cout << "|5. Sobre                                 |" << endl;
+		cout << "|6. Sair                                  |" << endl;
+		cout << "*=========================================*" << endl;
+		
+		switch (_getch()) {
+		case '1':
+			system("cls");
+			melhoresPontuacoes100(list, size);
+			cout << "\nPressione qualquer tecla para voltar ao menu.." << endl;
+			press = _getch();
+			break;
+		case '2':
+			system("cls");
+			melhoresPontuacoes10(list, size);
+			cout << "\nPressione qualquer tecla para voltar ao menu.." << endl;
+			press = _getch();
+			break;
+		case '3':
+			system("cls");
+			exibirJogadores(list, size);
+			cout << "\nPressione qualquer tecla para voltar ao menu.." << endl;
+			press = _getch();
+			break;
+		case '4':
+			system("cls");
+			preencherVetor(list, size);
+			cout << "\n*====================*" << endl;
+			cout << "| Nova lista criada! |" << endl;
+			cout << "*====================*" << endl;
+			cout << "\nPressione qualquer tecla para voltar ao menu." << endl;
+			press = _getch();
+			break;
+		case '5':
+			system("cls");
+			sobre();
+			cout << "\nPressione qualquer tecla para voltar ao menu." << endl;
+			press = _getch();
+			break;
+		case '6':
+			system("cls");
+			cout << "\n*===============*" << endl;
+			cout << "|   Obrigado!!  |" << endl;
+			cout << "*===============*" << endl;
+			end = true;
+			break;
+		}
+	}
+}
