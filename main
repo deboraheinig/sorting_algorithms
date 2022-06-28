@@ -184,14 +184,14 @@ int main() {
 		cout << "|       Selecione uma das opcoes:         | " << endl;
 		cout << "*=========================================*" << endl << endl;
 		cout << "*=========================================*" << endl;
-		cout << "|1. Bubble Sort: Top 100 em ordem alfabet.|" << endl;
+		cout << "|1. Bubble Sort: 100 melhores pontuacoes  |" << endl;
 		cout << "|2. Quick Sort: 10 melhores pontuacoes    |" << endl;
 		cout << "|3. Shell Sort: Ordem alfabetica          |" << endl;
 		cout << "|4. Criar uma nova lista de jogadores     |" << endl;
 		cout << "|5. Sobre                                 |" << endl;
 		cout << "|6. Sair                                  |" << endl;
 		cout << "*=========================================*" << endl;
-		
+
 		switch (_getch()) {
 		case '1':
 			system("cls");
