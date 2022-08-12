@@ -17,6 +17,7 @@ Every time that you press enter, it generates a new list of players.
 # Output example
 
 ![Menu print](printcpp.PNG)
+
 *1. 100 highest pontuations with BubbleSort
 ```
  01. qj [       999     ]
