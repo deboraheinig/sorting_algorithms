@@ -18,4 +18,4 @@ Shell sort
 
 # Output example
 
-![Menu print](../master/printcpp.PNG)
+![Menu print](master/printcpp.PNG)
