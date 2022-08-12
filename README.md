@@ -6,12 +6,9 @@ Every time that you press enter, it generates a new list of players.
 
 # Technologies
 
-* Sorting algorithms:
-```
-Bubble sort
-Quick sort
-Shell sort
-```
+* Bubble sort
+* Quick sort
+* Shell sort
 
 # Requirements
 
