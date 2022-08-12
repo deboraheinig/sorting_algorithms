@@ -18,4 +18,4 @@ Shell sort
 
 # Output example
 
-![alt text](../printcpp.PNG)
+![Menu print](sorting_algorithms/printcpp.PNG)
