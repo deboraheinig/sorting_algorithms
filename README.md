@@ -17,7 +17,7 @@ Every time that you press enter, it generates a new list of players.
 # Output example
 
 ![Menu print](printcpp.PNG)
-# 1. 100 highest pontuations with BubbleSort
+*1. 100 highest pontuations with BubbleSort
 ```
  01. qj [       999     ]
  02. lv [       976     ]
@@ -27,7 +27,7 @@ Every time that you press enter, it generates a new list of players.
  ...100
 ```
 
-# 2. 10 highest pontuations with QuickSort
+*2. 10 highest pontuations with QuickSort
 ```
  01. qj  [      999     ]
  02. lv  [      976     ]
@@ -41,7 +41,7 @@ Every time that you press enter, it generates a new list of players.
  10. hy  [      914     ]
 ```
 
-# 3. Alphabetical order with ShellSort
+*3. Alphabetical order with ShellSort
 ```
  01. am  [      999     ]
  02. am  [      976     ]
